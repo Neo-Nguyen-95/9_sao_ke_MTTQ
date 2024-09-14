@@ -27,12 +27,18 @@ end_time = time.time()
 print(f"Elapsed time: {end_time - start_time}")
 
 #%% I. EXTRACT DATE & DOCS
-dates, docs = [], []
+def table_to_date_doc(all_tables):
 
-for index, content in enumerate(all_tables):
-    if index % 2 == 1:
-        dates.extend(content[0].splitlines()[0::2])
-        docs.extend(content[0].splitlines()[1::2])
+    dates, docs = [], []
+    
+    for index, content in enumerate(all_tables):
+        if index % 2 == 1:
+            dates.extend(content[0].splitlines()[0::2])
+            docs.extend(content[0].splitlines()[1::2])
+    
+    return dates, docs
+
+dates, docs = table_to_date_doc(all_tables)
 
 # verification
 if len(dates)==len(docs):
@@ -87,8 +93,11 @@ df = pd.DataFrame({'date': dates,
 df[['money', 'content']] = df['full_content'].str.split(' ', n=1, expand=True)
 df['money'] = df['money'].str.replace('.', '', regex=False)
 
-df.to_csv('page_1_500.csv', index=False)
+# df.to_csv('page_1_500.csv', index=False)
+df.to_csv('test.csv', index=False)
 
+end_time = time.time()
+print(f"Total time: {end_time - start_time}")
 
 
 
