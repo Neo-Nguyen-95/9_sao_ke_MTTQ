@@ -5,7 +5,7 @@ from VCB_extraction import extract_pdf, table_to_date_doc, clean_text, validatio
 
 pd.set_option('display.max_columns', None)
 
-file_path = 'data/sao_ke_MTTQ_VCB_full.pdf'
+file_path = 'data_original/sao_ke_MTTQ_VCB_1.9_10.9.pdf'
 #%% COUNT NUMBER OF PAGE
 
 with pdfplumber.open(file_path) as pdf:
