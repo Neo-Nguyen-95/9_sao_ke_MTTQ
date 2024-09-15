@@ -40,7 +40,10 @@ def merge_lv2(folder_list):
     
     return df
 
-folder_list = ['data_VCB_1.9_10.9', 'data_Vietin_10.9_12.9', 'data_BIDV_1.9_12.9']
+folder_list = ['data_VCB_1.9_10.9', 
+                'data_Vietin_10.9_12.9', 
+                'data_BIDV_1.9_12.9'
+               ]
 df = merge_lv2(folder_list)
 
 #%% II. APP
@@ -53,17 +56,16 @@ st.set_page_config(
 st.title('THỐNG KÊ QUYÊN GÓP MẶT TRẬN TỔ QUỐC')
 st.markdown("""
             ## NGUỒN THÔNG TIN:
-            Thông tin được tôi tổng hợp (cập nhật đến 14/09/2024) được lấy từ các
+            Thông tin được tôi tổng hợp (cập nhật đến 15/09/2024) được lấy từ các
             tài liệu được Mặt Trận Tổ Quốc công bố tại link bên dưới:
-            """)
-url1 = 'https://drive.google.com/file/d/18dIWiReYtJkyuQ_8vSBJWweGaD71rBpu/view'
-st.write(" - [Thống kê số tiền ủng hộ qua số tài khoản Vietcombank 0011001932418 từ ngày 1/9/2024 đến ngày 10/9/2024](%s)" % url1)
-  
-url2 = 'https://drive.google.com/file/d/1ffkLOPymobFQjlklgpjabeHK7TX1ic3B/view'
-st.write("- [Thống kê số tiền ủng hộ qua số tài khoản Vietinbank CT1111 từ ngày 10/9/2024 đến ngày 12/9/2024](%s)" % url2)
-   
-url3 = 'https://drive.google.com/file/d/15CcMvRMufl2v4_wtTD-qpL_lokjLo326/view'
-st.write("- [Thống kê số tiền ủng hộ qua ngân hàng BIDV số tài khoản 1261122666 từ ngày 1/9/2024 đến ngày 12/9/2024](%s)" % url3)       
+         
+            | STT | Tổ chức | Tài khoản | Ngày | Số lượt sao kê |
+            |:-:|:-:|:-:|:-:|:-:|
+            |1|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/18dIWiReYtJkyuQ_8vSBJWweGaD71rBpu/view)|VCB|1/9/2024-10/9/2024|200.364|
+            |2|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1ffkLOPymobFQjlklgpjabeHK7TX1ic3B/view)|Vietin|10/9/2024-12/9/2024|60.490|
+            |3|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/15CcMvRMufl2v4_wtTD-qpL_lokjLo326/view)|BIDV|1/9/2024-12/9/2024|5.807|
+            |4|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/14B6AeTF2QPAqx3jbzVoPaxGxteqV_h61/view)|VCB|11/9/2024|...|
+            """)   
 #%% 2.1 EDA
 
 st.markdown("""
