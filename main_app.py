@@ -68,7 +68,7 @@ st.markdown("""
             ## I. THỐNG KÊ
             """)
 
-col_money, col_top10 = st.columns([1, 1])
+col_money, col_top10 = st.columns(2)
 with col_money:
     total_money = format_number(df['money'].sum())
     
@@ -132,6 +132,7 @@ with col_money_hist:
     
     st.write('Biểu đồ thể hiện phân bố của 90% số tiền quyên góp, \
              10% còn lại quá lớn bạn đọc có thể xem trong bảng kê ở phần sau')
+    
     
     
 with col_donate_count:
