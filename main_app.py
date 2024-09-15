@@ -163,7 +163,7 @@ st.markdown("""
 buff, col, buff2 = st.columns([1, 1, 1])
 search_term = col.text_input("Nhập từ khóa tìm kiếm:")
 
-buff, col, buff2 = st.columns([1, 8, 1])
+buff, col, buff2 = st.columns([1, 4, 1])
 if search_term:
     df_filter = df[df.apply(lambda row: search_term.lower() in row.to_string().lower(), 
                             axis='columns')]
