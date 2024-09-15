@@ -152,7 +152,6 @@ with col_donate_count:
     st.plotly_chart(fig)
     
     st.write('Biểu đồ thể hiện số lượt quyên góp qua từng ngày')
-    
 
 
 #%% 2.2 Search tool
