@@ -49,7 +49,7 @@ df = merge_lv2(folder_list)
 #%% II. APP
 st.set_page_config(
     page_title = 'THỐNG KÊ QUYÊN GÓP MẶT TRẬN TỔ QUỐC',
-    page_icon ='💰',
+    page_icon = '💰',
     layout = 'wide'
     )
 
@@ -64,7 +64,8 @@ st.markdown("""
             |1|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/18dIWiReYtJkyuQ_8vSBJWweGaD71rBpu/view)|VCB|1/9/2024-10/9/2024|200.364|
             |2|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1ffkLOPymobFQjlklgpjabeHK7TX1ic3B/view)|Vietin|10/9/2024-12/9/2024|60.490|
             |3|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/15CcMvRMufl2v4_wtTD-qpL_lokjLo326/view)|BIDV|1/9/2024-12/9/2024|5.807|
-            |4|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/14B6AeTF2QPAqx3jbzVoPaxGxteqV_h61/view)|VCB|11/9/2024|...|
+            |4|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/14B6AeTF2QPAqx3jbzVoPaxGxteqV_h61/view)|VCB|11/9/2024|...(đang cập nhật)...|
+            |5|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/145iywYGSaLCOwI4gqqW0dPPTTbz2v23i/view)|VCB|12/9/2024|...(đang cập nhật)...|
             """)   
 #%% 2.1 EDA
 
@@ -156,7 +157,6 @@ with col_donate_count:
     st.plotly_chart(fig)
     
     st.write('Biểu đồ thể hiện số lượt quyên góp qua từng ngày')
-
 
 #%% 2.2 Search tool
 st.markdown("""
