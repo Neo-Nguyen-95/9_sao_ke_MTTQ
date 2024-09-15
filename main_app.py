@@ -40,7 +40,7 @@ def merge_lv2(folder_list):
     
     return df
 
-folder_list = ['data_VCB_1.9_10.9', 'data_Vietin_10.9_12.9']
+folder_list = ['data_VCB_1.9_10.9', 'data_Vietin_10.9_12.9', 'data_BIDV_1.9_12.9']
 df = merge_lv2(folder_list)
 
 #%% II. APP
@@ -61,7 +61,9 @@ st.write(" - [Thống kê số tiền ủng hộ qua số tài khoản Vietcomba
   
 url2 = 'https://drive.google.com/file/d/1ffkLOPymobFQjlklgpjabeHK7TX1ic3B/view'
 st.write("- [Thống kê số tiền ủng hộ qua số tài khoản Vietinbank CT1111 từ ngày 10/9/2024 đến ngày 12/9/2024](%s)" % url2)
-          
+   
+url3 = 'https://drive.google.com/file/d/15CcMvRMufl2v4_wtTD-qpL_lokjLo326/view'
+st.write("- [Thống kê số tiền ủng hộ qua ngân hàng BIDV số tài khoản 1261122666 từ ngày 1/9/2024 đến ngày 12/9/2024](%s)" % url3)       
 #%% 2.1 EDA
 
 st.markdown("""
