@@ -129,8 +129,8 @@ with col_money_hist:
     fig = px.histogram(df['money'][df['money'] < upper],
                         nbins=20
                         )
-    fig.update_layout(xaxis_title='Số lượt',
-                      yaxis_title='Số tiền [VND]',
+    fig.update_layout(xaxis_title='Số tiền [VND]',
+                      yaxis_title='Số lượt',
                       title_text = 'Phân bố quyên góp',
                       showlegend=False)
     st.plotly_chart(fig)
