@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 import numpy as np
 import streamlit as st
+pd.set_option('display.max_columns', None)
 
 # for spyder display
 import plotly.io as pio
@@ -24,7 +25,8 @@ def merge_lv1(folder_path):
         df_temp = pd.read_csv(file)
         df = pd.concat([df, df_temp], axis='rows')
 
-    df['bank'] = folder_path.split('_')[1].lower()
+    df['organization'] = folder_path.split('_')[1].lower()
+    df['bank'] = folder_path.split('_')[2].lower()
     return df
 
 def merge_lv2(folder_list):
@@ -40,9 +42,13 @@ def merge_lv2(folder_list):
     
     return df
 
-folder_list = ['data_VCB_1.9_10.9', 
-                'data_Vietin_10.9_12.9', 
-                'data_BIDV_1.9_12.9'
+folder_list = [
+                'data_MTTQ TW_VCB_1.9_10.9', 
+                'data_MTTQ TW_Vietin_10.9_12.9', 
+                'data_MTTQ TW_BIDV_1.9_12.9',
+                'data_MTTQ TW_VCB_11.9',
+                'data_MTTQ TW_VCB_12.9',
+                'data_MTTQ TW_VCB_13.9',
                ]
 df = merge_lv2(folder_list)
 
@@ -56,7 +62,7 @@ st.set_page_config(
 st.title('THỐNG KÊ QUYÊN GÓP MẶT TRẬN TỔ QUỐC')
 st.markdown("""
             ## NGUỒN THÔNG TIN:
-            Thông tin được tôi tổng hợp (cập nhật đến 15/09/2024) được lấy từ các
+            Thông tin được tôi tổng hợp (cập nhật đến 16/09/2024) được lấy từ các
             tài liệu được Mặt Trận Tổ Quốc công bố tại link bên dưới:
          
             | STT | Tổ chức | Tài khoản | Ngày | Số lượt sao kê |
@@ -64,8 +70,9 @@ st.markdown("""
             |1|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/18dIWiReYtJkyuQ_8vSBJWweGaD71rBpu/view)|VCB|1/9/2024-10/9/2024|200.364|
             |2|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1ffkLOPymobFQjlklgpjabeHK7TX1ic3B/view)|Vietin|10/9/2024-12/9/2024|60.490|
             |3|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/15CcMvRMufl2v4_wtTD-qpL_lokjLo326/view)|BIDV|1/9/2024-12/9/2024|5.807|
-            |4|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/14B6AeTF2QPAqx3jbzVoPaxGxteqV_h61/view)|VCB|11/9/2024|...(đang cập nhật)...|
-            |5|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/145iywYGSaLCOwI4gqqW0dPPTTbz2v23i/view)|VCB|12/9/2024|...(đang cập nhật)...|
+            |4|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/14B6AeTF2QPAqx3jbzVoPaxGxteqV_h61/view)|VCB|11/9/2024|294.553|
+            |5|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/145iywYGSaLCOwI4gqqW0dPPTTbz2v23i/view)|VCB|12/9/2024|294.205|
+            |6|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1vF8CZjFKEG2LsVjJgIiHZfsKLqu1h6ZM/view)|VCB|13/9/2024|386.402|
             """)   
 #%% 2.1 EDA
 
@@ -166,12 +173,12 @@ st.markdown("""
 buff, col, buff2 = st.columns([1, 1, 1])
 search_term = col.text_input("Nhập từ khóa tìm kiếm:")
 
-buff, col, buff2 = st.columns([1, 4, 1])
+buff, col, buff2 = st.columns([1, 6, 1])
 if search_term:
     df_filter = df[df.apply(lambda row: search_term.lower() in row.to_string().lower(), 
                             axis='columns')]
     col.write("Dữ liệu lọc:")
-    col.dataframe(df_filter)
+    col.dataframe(df_filter, width=1200, height=600)
 else:
     col.write("Toàn bộ dữ liệu:")
     col.dataframe(df)

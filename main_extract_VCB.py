@@ -1,7 +1,7 @@
 #%% LIBRARY
 import pandas as pd
 import pdfplumber
-from VCB_extraction import extract_pdf, table_to_date_doc, clean_text, validation
+from module_VCB_extraction import extract_pdf, table_to_date_doc, clean_text, validation
 
 pd.set_option('display.max_columns', None)
 
