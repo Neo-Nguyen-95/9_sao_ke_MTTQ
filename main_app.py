@@ -6,6 +6,9 @@ import numpy as np
 import streamlit as st
 pd.set_option('display.max_columns', None)
 
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
 # for spyder display
 import plotly.io as pio
 pio.renderers.default='browser'
@@ -161,22 +164,48 @@ with col_money_hist:
     
     
 with col_donate_count:
-  
-    donate_count = df.groupby('date').count()
-    
-    fig = px.line(x=donate_count.index, y=donate_count['money'])
-    fig.update_layout(
-        xaxis=dict(
-            tickformat="%d-%m"
-            ),
-        xaxis_title = 'Ngày quyên góp',
-        yaxis_title = 'Số lượt quyên góp',
-        title_text = 'Số lượt quyên góp mỗi ngày' ,
-        )
+    donate_mean = df['money'].groupby(df['date']).mean()
+    fig = px.line(x=donate_mean.index, y=donate_mean.values, markers=True)
+    fig.update_layout(xaxis_title='Ngày',
+                      yaxis_title='Số tiền trung bình/lần [VND]',
+                      title_text = 'Số tiền quyên góp trung bình mỗi ngày',
+                      showlegend=False)
     
     st.plotly_chart(fig)
     
-    st.write('Biểu đồ thể hiện số lượt quyên góp qua từng ngày')
+# donate each day
+donate_count = df.groupby('date').count()
+donate_amount = df['money'].groupby(df['date']).sum()
+
+fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+fig.add_trace(
+    go.Scatter(x=donate_count.index, y=donate_count['money'], 
+               mode='lines+markers', name='Số lượt quyên góp'), 
+    secondary_y=False)
+
+fig.add_trace(
+    go.Scatter(x=donate_amount.index, y=donate_amount.values, 
+               mode='lines+markers', name='Số tiền quyên góp'), 
+    secondary_y=True)
+
+fig.update_layout(
+    xaxis=dict(
+        tickformat="%d-%m"
+        ),
+    xaxis_title = 'Ngày quyên góp',
+    title_text = 'Thống kê quyên góp mỗi ngày' ,
+    )
+
+fig.update_yaxes(title_text="Số lượt quyên góp", 
+                 secondary_y=False)
+fig.update_yaxes(title_text="Số tiền quyên góp", 
+                 secondary_y=True)
+
+
+st.plotly_chart(fig)
+
+st.write('Biểu đồ thể hiện số lượt quyên góp qua từng ngày')
 
 #%% 2.2 Search tool
 st.markdown("""
