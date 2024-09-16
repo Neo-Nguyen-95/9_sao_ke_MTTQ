@@ -11,7 +11,7 @@ import plotly.io as pio
 pio.renderers.default='browser'
 
 def format_number(number):
-    format_number = f"{number:,}"
+    format_number = f"{int(number):,}"
     format_number = format_number.replace(',', '.')
     return format_number
 
@@ -116,7 +116,20 @@ with col_money:
                 </h1>
                 </div>
                 """,
-                unsafe_allow_html=True) 
+                unsafe_allow_html=True)
+    
+    money_array = np.array(df['money'])
+    quantile_25 = format_number(np.quantile(money_array, .25))
+    quantile_75 = format_number(np.quantile(money_array, .75))
+    median = format_number(np.quantile(money_array, .5))
+    
+    
+    st.write('Trong đó:')
+    st.markdown(f"""
+                | 25% quantile | 50% quantile(median - trung vị) | 75% quantile| 
+                |:-:|:-:|:-:|
+                |{quantile_25}| {median}| {quantile_75}| 
+                """)
     
 with col_top10:
     st.write('Top 10 cá nhân/tập thể hảo tâm:')
@@ -180,7 +193,8 @@ if search_term:
     col.dataframe(df_filter, width=1200)
 else:
     col.write("Dữ liệu sao kê:")
-    col.dataframe(df.head(10))
+    df_show = df.head(10)
+    col.dataframe(df_show, width=1200)
 
 #%% DISCLAIMER
 st.markdown("""
