@@ -175,13 +175,12 @@ search_term = col.text_input("Nhập từ khóa tìm kiếm:")
 
 buff, col, buff2 = st.columns([1, 6, 1])
 if search_term:
-    df_filter = df[df.apply(lambda row: search_term.lower() in row.to_string().lower(), 
-                            axis='columns')]
+    df_filter = df[df['content'].str.contains(search_term, case=False)]
     col.write("Dữ liệu lọc:")
-    col.dataframe(df_filter, width=1200, height=600)
+    col.dataframe(df_filter, width=1200)
 else:
-    col.write("Toàn bộ dữ liệu:")
-    col.dataframe(df)
+    col.write("Dữ liệu sao kê:")
+    col.dataframe(df.head(10))
 
 #%% DISCLAIMER
 st.markdown("""
