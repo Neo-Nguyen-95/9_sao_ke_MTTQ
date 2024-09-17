@@ -10,8 +10,8 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 # for spyder display
-import plotly.io as pio
-pio.renderers.default='browser'
+# import plotly.io as pio
+# pio.renderers.default='browser'
 
 def format_number(number):
     format_number = f"{int(number):,}"
