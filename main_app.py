@@ -52,7 +52,8 @@ folder_list = [
                 'data_MTTQ TW_VCB_11.9',
                 'data_MTTQ TW_VCB_12.9',
                 'data_MTTQ TW_VCB_13.9',
-                'data_MTTQ TW_VCB_14.9',                
+                'data_MTTQ TW_VCB_14.9',
+                # 'data_MTTQ HN_Agribank_9.9_12.9',
                ]
 df = merge_lv2(folder_list)
 
