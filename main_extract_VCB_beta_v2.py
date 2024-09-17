@@ -4,7 +4,7 @@ import pandas as pd
 pd.set_option('display.max_columns', None)
 
 #%% EXTRACT DATA
-file_path = 'data_original/sao_ke_MTTQ_VCB_13_9.pdf'
+file_path = 'data_original/sao_ke_MTTQ_VCB_14_9.pdf'
 
 with pdfplumber.open(file_path) as pdf:
     pdf_length = len(pdf.pages)
@@ -13,9 +13,10 @@ def extract_pdf(file_path, start_page, end_page):
     with pdfplumber.open(file_path) as pdf:
         all_tables = []
         for page in pdf.pages[start_page:end_page]:
-            box_table = (15, 10, 550, 830)
+            # box_table = (15, 10, 550, 830)
             # page.to_image().draw_rect(box_table).show()
-            tables = page.within_bbox(box_table).extract_table()
+            # tables = page.within_bbox(box_table).extract_table()
+            tables = page.extract_table()
             
             all_tables.extend(tables)
             

@@ -52,6 +52,7 @@ folder_list = [
                 'data_MTTQ TW_VCB_11.9',
                 'data_MTTQ TW_VCB_12.9',
                 'data_MTTQ TW_VCB_13.9',
+                'data_MTTQ TW_VCB_14.9',                
                ]
 df = merge_lv2(folder_list)
 
@@ -76,6 +77,7 @@ st.markdown("""
             |4|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/14B6AeTF2QPAqx3jbzVoPaxGxteqV_h61/view)|VCB|11/9/2024|294.553|
             |5|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/145iywYGSaLCOwI4gqqW0dPPTTbz2v23i/view)|VCB|12/9/2024|294.205|
             |6|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1vF8CZjFKEG2LsVjJgIiHZfsKLqu1h6ZM/view)|VCB|13/9/2024|386.402|
+            |6|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1l03pejKXnjVXGj9RSnNVKQp5KVylfW-7/view)|VCB|14/9/2024|205.112|
             """)   
 #%% 2.1 EDA
 
