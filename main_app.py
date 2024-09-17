@@ -41,7 +41,7 @@ def merge_lv2(folder_list):
     
     df = df.reset_index()
     df.drop(columns='index', inplace=True)
-    df['date'] = pd.to_datetime(df['date'], format='%d/%m/%Y')
+    df['date'] = pd.to_datetime(df['date'], format='%d/%m/%Y').dt.date
     
     return df
 
@@ -166,10 +166,12 @@ with col_money_hist:
 with col_donate_count:
     donate_mean = df['money'].groupby(df['date']).mean()
     fig = px.line(x=donate_mean.index, y=donate_mean.values, markers=True)
-    fig.update_layout(xaxis_title='Ngày',
-                      yaxis_title='Số tiền trung bình/lần [VND]',
-                      title_text = 'Số tiền quyên góp trung bình mỗi ngày',
-                      showlegend=False)
+    fig.update_layout(
+        xaxis=dict(tickformat="%d-%m"),
+        xaxis_title='Ngày',
+        yaxis_title='Số tiền trung bình/lần [VND]',
+        title_text = 'Số tiền quyên góp trung bình mỗi ngày',
+        showlegend=False)
     
     st.plotly_chart(fig)
     
@@ -215,15 +217,14 @@ st.markdown("""
 buff, col, buff2 = st.columns([1, 1, 1])
 search_term = col.text_input("Nhập từ khóa tìm kiếm:")
 
-buff, col, buff2 = st.columns([1, 6, 1])
 if search_term:
     df_filter = df[df['content'].str.contains(search_term, case=False)]
-    col.write("Dữ liệu lọc:")
-    col.dataframe(df_filter, width=1200)
+    st.write("Dữ liệu lọc:")
+    st.dataframe(df_filter, width=1200)
 else:
-    col.write("Dữ liệu sao kê:")
+    st.write("Dữ liệu sao kê:")
     df_show = df.head(10)
-    col.dataframe(df_show, width=1200)
+    st.dataframe(df_show, width=1200)
 
 #%% DISCLAIMER
 st.markdown("""
