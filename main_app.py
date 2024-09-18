@@ -21,7 +21,7 @@ def format_number(number):
 #%% I. WRANGLE DATA
 def merge_lv1(folder_path):
     file_list = os.listdir(folder_path)
-    files = [folder_path + '/' + file for file in file_list if file != '.DS_Store']
+    files = [folder_path + '/' + file for file in file_list if 'Store' not in file]
 
     df = pd.DataFrame()
     for file in files:
@@ -59,7 +59,7 @@ folder_list = [
                 'data_MTTQ TW_VCB_12.9',
                 'data_MTTQ TW_VCB_13.9',
                 'data_MTTQ TW_VCB_14.9',
-                # 'data_MTTQ TW_Vietin_13.9_15.9',
+                'data_MTTQ TW_Vietin_13.9_15.9',
                 # 'data_MTTQ HN_Agribank_9.9_12.9',
                ]
 df = merge_lv2(folder_list)

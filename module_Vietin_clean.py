@@ -12,4 +12,16 @@ for file in file_list:
     
 df = df[df['money'].notna()]
 
-df['money'].apply(lambda row: row if row.isnumeric() else row[:-2])
+# df['money'].apply(lambda row: row if isinstance(row, (float, int)) else row[:-2])
+
+for i, value in enumerate(df['money'].values):
+    try:
+        float(value)
+    except:
+        print(value)
+        df.iloc[i, 2] = int(value[:-2])
+        print(df.iloc[i, 2])
+        print("---")
+        
+
+df.to_csv('all_page.csv')
