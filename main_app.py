@@ -110,7 +110,7 @@ with col_money:
     
     total_donate_time = format_number(len(df))
     
-    st.write('Tổng lượt quyên góp:')
+    st.write('Tổng lượt quyên góp (đã loại trừ những khoản giao dịch 0 VND):')
     st.markdown(f"""
                 <div style="background-color: #EDF4F2; border-radius: 10px; padding: 5px">
                 <h1 style="font-size: 36px; color: #2F3C7E; text-align: center"> 
