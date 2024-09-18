@@ -38,10 +38,15 @@ def merge_lv2(folder_list):
         df_temp = merge_lv1(folder_path)
         df = pd.concat([df, df_temp], axis='rows')
     
-    df = df[df['money'].notna()]
-    df = df[df['money']>0]
+    # clean money col
+    df = df[df['money'].astype(int)>0]
+    
+    # drop index
     df = df.reset_index()
     df.drop(columns='index', inplace=True)
+    
+    # clean date col
+    
     df['date'] = pd.to_datetime(df['date'], format='%d/%m/%Y').dt.date
     
     return df
@@ -54,7 +59,7 @@ folder_list = [
                 'data_MTTQ TW_VCB_12.9',
                 'data_MTTQ TW_VCB_13.9',
                 'data_MTTQ TW_VCB_14.9',
-                'data_MTTQ TW_Vietin_13.9_15.9',
+                # 'data_MTTQ TW_Vietin_13.9_15.9',
                 # 'data_MTTQ HN_Agribank_9.9_12.9',
                ]
 df = merge_lv2(folder_list)
