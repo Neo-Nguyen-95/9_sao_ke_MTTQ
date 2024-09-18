@@ -154,47 +154,84 @@ with col_top10:
     
   
 
-col_money_hist, col_donate_count = st.columns(2)
-with col_money_hist:    
+col_left, col_right = st.columns(2)
+with col_left:    
+    st.markdown("""
+                **Histogram of distribution**
+                """)
+    option = st.selectbox('Chọn kiểu đồ thị phân bố:',
+                 ['Giá trị thường', 'Giá trị log cơ số 10'], index=0)
     
-    money_array = np.array(df['money'])
-    upper = np.quantile(money_array, 0.9)
-
-    fig = px.histogram(df['money'][df['money'] < upper],
-                        nbins=40
-                        )
-    fig.update_layout(xaxis_title='Số tiền [VND]',
-                      yaxis_title='Số lượt',
-                      title_text = 'Phân bố 90% quyên góp',
-                      showlegend=False)
-    st.plotly_chart(fig)
+    if option == 'Giá trị thường':
+        money_array = np.array(df['money'])
+        upper = np.quantile(money_array, 0.9)
     
-    st.write('Biểu đồ thể hiện phân bố của 90% số tiền quyên góp, \
+        fig = px.histogram(df['money'][df['money'] < upper],
+                            nbins=40
+                            )
+        fig.update_layout(xaxis_title='Số tiền [VND]',
+                          yaxis_title='Số lượt',
+                          title_text = 'Phân bố 90% quyên góp',
+                          showlegend=False)
+        st.plotly_chart(fig)
+    
+        st.write('Biểu đồ thể hiện phân bố của 90% số tiền quyên góp, \
              10% còn lại quá lớn bạn đọc có thể xem trong bảng kê ở phần sau')
-             
+    else:
+        # log total donate histogram
+        fig = px.histogram(np.log10(df['money']), nbins=80)
+        fig.update_layout(xaxis_title='Log10(Số tiền) [VND]',
+                          yaxis_title='Số lượt',
+                          title_text = 'Phân bố toàn bộ quyên góp với giá trị Log10',
+                          showlegend=False)
+        st.plotly_chart(fig)
+        st.write('Biểu đồ thể hiện phân bố của số tiền quyên góp qua giá trị log10')
     
-with col_donate_count:
-    # log total donate histogram
-    fig = px.histogram(np.log10(df['money']), nbins=80)
-    fig.update_layout(xaxis_title='Log10(Số tiền) [VND]',
-                      yaxis_title='Số lượt',
-                      title_text = 'Phân bố toàn bộ quyên góp với giá trị Log10',
-                      showlegend=False)
+with col_right:
+    st.markdown("""
+                **Line graph of mean values**
+                """)
+    st.write('')
+    st.write('')
+                
+    option = st.checkbox('Show 25th & 75th quantile')
+    
+    # mean daily
+    donate_mean = df['money'].groupby(df['date']).mean()
+    donate_q25 = df['money'].groupby(df['date']).quantile(.25)
+    donate_q75 = df['money'].groupby(df['date']).quantile(.75)
+    
+    fig = px.line(x=donate_mean.index, y=donate_mean.values, markers=True)
+    
+    if option:
+        fig.add_trace(go.Scatter(
+            x=donate_mean.index, y=donate_q25,
+            mode='lines',
+            name='Line of 25th quantile',
+            line=dict(color='#f5b7b1')
+            ))
+        
+        fig.add_trace(go.Scatter(
+            x=donate_mean.index, y=donate_q75,
+            mode='lines',
+            name='Line of 75th quantile',
+            line=dict(color='#f5b7b1'),
+            fill='tonexty', fillcolor='rgba(255, 0, 0, 0.1)'
+            ))
+    
+    fig.update_layout(
+        xaxis=dict(tickformat="%d-%m"),
+        xaxis_title='Ngày',
+        yaxis_title='Số tiền trung bình/lần [VND]',
+        title_text = 'Số tiền quyên góp trung bình mỗi ngày',
+        showlegend=False,
+        )
+    
     st.plotly_chart(fig)
-
-
-# mean daily
-donate_mean = df['money'].groupby(df['date']).mean()
-fig = px.line(x=donate_mean.index, y=donate_mean.values, markers=True)
-fig.update_layout(
-    xaxis=dict(tickformat="%d-%m"),
-    xaxis_title='Ngày',
-    yaxis_title='Số tiền trung bình/lần [VND]',
-    title_text = 'Số tiền quyên góp trung bình mỗi ngày',
-    showlegend=False,
-    )
-
-st.plotly_chart(fig)
+    st.markdown("""
+                Đường màu xanh thể hiện giá trị trung bình mỗi ngày, còn \
+                giá trị quantile 25% và 75% được thể hiện qua dải màu đỏ.
+                """)
     
 # donate each day
 donate_count = df.groupby('date').count()
@@ -202,29 +239,28 @@ donate_amount = df['money'].groupby(df['date']).sum()
 
 fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-fig.add_trace(
-    go.Scatter(x=donate_count.index, y=donate_count['money'], 
-               mode='lines+markers', name='Số lượt quyên góp'), 
-    secondary_y=False)
+fig.add_trace(go.Scatter(
+    x=donate_count.index, y=donate_count['money'],
+    line=dict(color='#6495ED'),
+    mode='lines+markers', name='Số lượt quyên góp'
+    ), secondary_y=False)
 
-fig.add_trace(
-    go.Scatter(x=donate_amount.index, y=donate_amount.values, 
-               mode='lines+markers', name='Số tiền quyên góp'), 
-    secondary_y=True)
+fig.add_trace(go.Scatter(
+    x=donate_amount.index, y=donate_amount.values, 
+    line=dict(color='#2ecc71'),
+    mode='lines+markers', name='Số tiền quyên góp'
+    ), secondary_y=True)
 
 fig.update_layout(
     xaxis=dict(
-        tickformat="%d-%m"
+        tickformat="%d-%m",
+        title='Ngày quyên góp'
         ),
-    xaxis_title = 'Ngày quyên góp',
+    yaxis=dict(
+        gridcolor='#d6eaf8'),
+    yaxis2=dict(
+        gridcolor='#d4efdf'),
     title_text = 'Thống kê quyên góp mỗi ngày',
-    legend=dict(
-        orientation='h',
-        yanchor='bottom',
-        y=-0.35,
-        xanchor='center',
-        x=0.5,
-        )
     )
 
 fig.update_yaxes(title_text="Số lượt quyên góp", 
