@@ -3,7 +3,7 @@ import pdfplumber
 import pandas as pd
 
 #%% EXTRACT DATA
-file_path = 'data_original/sao_ke_MTTQ_Vietin_10.9_12.9.pdf'
+file_path = 'data_original/sao_ke_MTTQ_Vietin_13.9_15.9.pdf'
 
 with pdfplumber.open(file_path) as pdf:
     pdf_length = len(pdf.pages)
@@ -17,7 +17,6 @@ def extract_pdf(file_path, start_page, end_page):
             
     return all_tables
 
-
 start_page = 1
 num_page = 400
 
@@ -26,7 +25,7 @@ while start_page < pdf_length:
     data = extract_pdf(file_path, start_page - 1, end_page)
     
     if start_page == 1:
-        data = data[2:]
+        data = data[1:]
     
     dates, moneys, contents = [], [], []
     for information in data:
