@@ -161,30 +161,40 @@ with col_money_hist:
     upper = np.quantile(money_array, 0.9)
 
     fig = px.histogram(df['money'][df['money'] < upper],
-                        nbins=20
+                        nbins=40
                         )
     fig.update_layout(xaxis_title='Số tiền [VND]',
                       yaxis_title='Số lượt',
-                      title_text = 'Phân bố quyên góp',
+                      title_text = 'Phân bố 90% quyên góp',
                       showlegend=False)
     st.plotly_chart(fig)
     
     st.write('Biểu đồ thể hiện phân bố của 90% số tiền quyên góp, \
              10% còn lại quá lớn bạn đọc có thể xem trong bảng kê ở phần sau')
-    
-    
+             
     
 with col_donate_count:
-    donate_mean = df['money'].groupby(df['date']).mean()
-    fig = px.line(x=donate_mean.index, y=donate_mean.values, markers=True)
-    fig.update_layout(
-        xaxis=dict(tickformat="%d-%m"),
-        xaxis_title='Ngày',
-        yaxis_title='Số tiền trung bình/lần [VND]',
-        title_text = 'Số tiền quyên góp trung bình mỗi ngày',
-        showlegend=False)
-    
+    # log total donate histogram
+    fig = px.histogram(np.log10(df['money']), nbins=80)
+    fig.update_layout(xaxis_title='Log10(Số tiền) [VND]',
+                      yaxis_title='Số lượt',
+                      title_text = 'Phân bố toàn bộ quyên góp với giá trị Log10',
+                      showlegend=False)
     st.plotly_chart(fig)
+
+
+# mean daily
+donate_mean = df['money'].groupby(df['date']).mean()
+fig = px.line(x=donate_mean.index, y=donate_mean.values, markers=True)
+fig.update_layout(
+    xaxis=dict(tickformat="%d-%m"),
+    xaxis_title='Ngày',
+    yaxis_title='Số tiền trung bình/lần [VND]',
+    title_text = 'Số tiền quyên góp trung bình mỗi ngày',
+    showlegend=False,
+    )
+
+st.plotly_chart(fig)
     
 # donate each day
 donate_count = df.groupby('date').count()
@@ -207,7 +217,14 @@ fig.update_layout(
         tickformat="%d-%m"
         ),
     xaxis_title = 'Ngày quyên góp',
-    title_text = 'Thống kê quyên góp mỗi ngày' ,
+    title_text = 'Thống kê quyên góp mỗi ngày',
+    legend=dict(
+        orientation='h',
+        yanchor='bottom',
+        y=-0.35,
+        xanchor='center',
+        x=0.5,
+        )
     )
 
 fig.update_yaxes(title_text="Số lượt quyên góp", 
@@ -239,6 +256,23 @@ else:
 
 #%% DISCLAIMER
 st.markdown("""
+            <div style="text-align: center">
+            
+            
+            ___
+            
+            
+            </div>
+            """,
+            unsafe_allow_html=True)
+
+col1, buff, col2 = st.columns([2, .5, 7])
+col1.markdown("""
+              ### About me:
+              Hi there! I am Neo, a data enthusiast. It is great if you are intested in my work.
+              Meet me at [Facebook](https://www.facebook.com/lun.cao), [LinkedIn](https://www.linkedin.com/in/viet-dung-nguyen-87809311a/)
+              """)
+col2.markdown("""
             ### Miễn trừ trách nhiệm: 
             Đây KHÔNG phải trang thông tin của một tổ chức có thẩm quyển mà là 
             sản phẩm của cá nhân, tôi KHÔNG đảm bảo tính chính xác hoàn toàn của 
