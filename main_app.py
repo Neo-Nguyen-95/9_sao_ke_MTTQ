@@ -21,7 +21,7 @@ def format_number(number):
 #%% I. WRANGLE DATA
 def merge_lv1(folder_path):
     file_list = os.listdir(folder_path)
-    files = [folder_path + '/' + file for file in file_list if 'Store' not in file]
+    files = [folder_path + '/' + file for file in file_list if '.csv' in file]
 
     df = pd.DataFrame()
     for file in files:
@@ -51,7 +51,7 @@ def merge_lv2(folder_list):
     
     return df
 
-folder_list = [
+folder_list = [ 
                 'data_MTTQ TW_VCB_1.9_10.9', 
                 'data_MTTQ TW_Vietin_10.9_12.9', 
                 'data_MTTQ TW_BIDV_1.9_12.9',
@@ -60,7 +60,7 @@ folder_list = [
                 'data_MTTQ TW_VCB_13.9',
                 'data_MTTQ TW_VCB_14.9',
                 'data_MTTQ TW_Vietin_13.9_15.9',
-                # 'data_MTTQ HN_Agribank_9.9_12.9',
+                'data_MTTQ HN_Agribank_9.9_12.9',
                ]
 df = merge_lv2(folder_list)
 
@@ -87,6 +87,7 @@ st.markdown("""
             |6|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1vF8CZjFKEG2LsVjJgIiHZfsKLqu1h6ZM/view)|VCB|13/9/2024|386.402|
             |7|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1l03pejKXnjVXGj9RSnNVKQp5KVylfW-7/view)|VCB|14/9/2024|205.112|
             |8|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/119YkzrpkYAC4J3TYZYpvSX95yo-0OzP6/view)|Vietin|13/9/2024-15/9/2024|99.343|
+            |9|[MTTQ - Ban cứu trợ TP Hà Nội](https://drive.google.com/drive/u/0/folders/1LcwdlD34rJODyiosCTsFvF-bM6Rp23te)|Agribank|9/9/2024-12/9/2024|42.493|
             """)   
 #%% 2.1 EDA
 
