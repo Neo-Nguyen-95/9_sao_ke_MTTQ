@@ -8,6 +8,7 @@ pd.set_option('display.max_columns', None)
 
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from datetime import datetime
 
 # for spyder display
 # import plotly.io as pio
@@ -61,8 +62,11 @@ folder_list = [
                 'data_MTTQ TW_VCB_14.9',
                 'data_MTTQ TW_Vietin_13.9_15.9',
                 'data_MTTQ HN_Agribank_9.9_12.9',
+                'data_MTTQ TW_Vietin_16.9'
                ]
 df = merge_lv2(folder_list)
+filter_date = datetime(2024,9,8).date()  # the day that storm came
+df = df[df['date'] >= filter_date]
 
 #%% II. APP
 st.set_page_config(
@@ -88,6 +92,7 @@ st.markdown("""
             |7|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1l03pejKXnjVXGj9RSnNVKQp5KVylfW-7/view)|VCB|14/9/2024|205.112|
             |8|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/119YkzrpkYAC4J3TYZYpvSX95yo-0OzP6/view)|Vietin|13/9/2024-15/9/2024|99.343|
             |9|[MTTQ - Ban cứu trợ TP Hà Nội](https://drive.google.com/drive/u/0/folders/1LcwdlD34rJODyiosCTsFvF-bM6Rp23te)|Agribank|9/9/2024-12/9/2024|42.493|
+            |10|[MTTQ - Ban cứu trợ TP Hà Nội](https://www.mediafire.com/file/b7hjuv1f85zf6cc/Ng%25C3%25A0y_16.9.2024_T%25C3%25A0i_kho%25E1%25BA%25A3n_CT1111.pdf/file)|Vietin|16/9/2024|16.276|
             """)   
 #%% 2.1 EDA
 

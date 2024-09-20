@@ -4,10 +4,12 @@ import pandas as pd
 pd.set_option('display.max_columns', None)
 
 #%% EXTRACT DATA
-file_path = 'data_original/sao_ke_MTTQ_Vietin_13.9_15.9.pdf'
+file_path = 'data_original/sao_ke_MTTQ_Vietin_16.9.pdf'
 
-with pdfplumber.open(file_path) as pdf:
-    pdf_length = len(pdf.pages)
+# with pdfplumber.open(file_path) as pdf:
+#     pdf_length = len(pdf.pages)
+
+
     
 def extract_pdf(file_path, start_page, end_page):
     with pdfplumber.open(file_path) as pdf:
@@ -21,22 +23,23 @@ def extract_pdf(file_path, start_page, end_page):
             
     return all_tables
 
+pdf_length = 454
 start_page = 1
-num_page = 400
+num_page = 500
 
 while start_page < pdf_length:
     end_page = min(pdf_length, start_page - 1 + num_page)
     data = extract_pdf(file_path, start_page - 1, end_page)
     
     if start_page == 1:
-        data = data[1:]
+        data = data[2:]
     
-    df = pd.DataFrame(data, columns=['index', 'date', 'content', 'money', 'buff'])
+    df = pd.DataFrame(data, columns=['index', 'date', 'content', 'money', 'buff1', 'buff2'])
     
     df['date'] = df['date'].str.split('\n', expand=True)[0]
     df['money'] = df['money'].str.replace('.','')
     df['content'] = df['content'].str.replace('\n',' ')
-    df.drop(columns=['index', 'buff'], inplace=True)
+    df.drop(columns=['index', 'buff1', 'buff2'], inplace=True)
     
     df.to_csv('page_' + str(start_page) + '_' + str(end_page) + '.csv',
               index=False)
