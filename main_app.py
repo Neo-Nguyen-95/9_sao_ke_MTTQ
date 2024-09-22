@@ -8,7 +8,11 @@ pd.set_option('display.max_columns', None)
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-df = pd.read_parquet("data_full.parquet", engine="pyarrow")
+from data_module import data_module
+
+dataObject = data_module()
+# dataObject.update_data()
+df = dataObject.load_data()
 
 # format function
 def format_number(number):
