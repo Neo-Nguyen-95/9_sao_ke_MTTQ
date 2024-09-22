@@ -34,7 +34,7 @@ st.markdown("""
             """)
 
 st.markdown("""
-            ### Nguồn thông tin:
+            ### Nguồn thông tin
             Thông tin được tôi tổng hợp (cập nhật đến 21/09/2024) được lấy từ các
             tài liệu được Mặt Trận Tổ Quốc công bố tại link các bên dưới:
          
@@ -54,11 +54,23 @@ st.markdown("""
             """)  
 
 st.markdown("""
-            ### Quy trình xử lí dữ liệu:
+            ### Quy trình xử lí dữ liệu
             Để đảm bảo tính chính xác, tôi xử lí data theo mô hình bên dưới.
             """)
 
-st.image('photos/method.jpg', caption='Methodology of data process') 
+st.image('photos/method.jpg', caption='Methodology of data process')
+
+st.markdown("""
+            1. Thông tin được công bố trên mạng xã hội của Mặt Trận Tổ Quốc ở dạng 
+            file PDF
+            2. Data ở từng trang của file pdf được extract với pdfplumber
+            3. Data được làm sạch và lưu trữ ở dạng bảng
+            4. Kiểm tra tính chính xác của data bằng cách đối chiếu lại với số lượng
+             giao dịch hoặc số dư sau mỗi giao dịch
+            5. Lưu data sau khi làm sạch vào các file trong folder database
+            6. Tổng hợp data vào một file theo format parquet để tăng tốc độ đọc file 
+            7. Web app sẽ load trực tiếp file parquet để show số liệu bên dưới
+            """)
 #%% 2.1 EDA
 
 st.markdown("""
