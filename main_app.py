@@ -1,5 +1,4 @@
-#%% LIBRARY
-import os
+#%% LIBRARY & DATA
 import pandas as pd
 import plotly.express as px
 import numpy as np
@@ -8,67 +7,14 @@ pd.set_option('display.max_columns', None)
 
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from datetime import datetime
 
-# for spyder display
-# import plotly.io as pio
-# pio.renderers.default='browser'
+df = pd.read_parquet("data_full.parquet", engine="pyarrow")
 
+# format function
 def format_number(number):
     format_number = f"{int(number):,}"
     format_number = format_number.replace(',', '.')
     return format_number
-
-#%% I. WRANGLE DATA
-def merge_lv1(folder_path):
-    file_list = os.listdir(folder_path)
-    files = [folder_path + '/' + file for file in file_list if '.csv' in file]
-
-    df = pd.DataFrame()
-    for file in files:
-        df_temp = pd.read_csv(file)
-        df = pd.concat([df, df_temp], axis='rows')
-
-    df['organization'] = folder_path.split('_')[1].lower()
-    df['bank'] = folder_path.split('_')[2].lower()
-    return df
-
-def merge_lv2(folder_list):
-    df = pd.DataFrame()
-    for folder_path in folder_list:
-        df_temp = merge_lv1(folder_path)
-        df = pd.concat([df, df_temp], axis='rows')
-    
-    # clean money col
-    df = df[df['money'].astype(int)>0]
-    
-    # filter date col
-    df['date'] = pd.to_datetime(df['date'], format='%d/%m/%Y').dt.date
-    filter_date = datetime(2024,9,8).date()  # the day that storm came
-    df = df[df['date'] >= filter_date]
-    
-    # drop index
-    df = df.reset_index()
-    df.drop(columns='index', inplace=True)
-  
-    return df
-
-folder_list = [ 
-                'data_MTTQ TW_VCB_1.9_10.9', 
-                'data_MTTQ TW_Vietin_10.9_12.9', 
-                'data_MTTQ TW_BIDV_1.9_12.9',
-                'data_MTTQ TW_VCB_11.9',
-                'data_MTTQ TW_VCB_12.9',
-                'data_MTTQ TW_VCB_13.9',
-                'data_MTTQ TW_VCB_14.9',
-                'data_MTTQ TW_Vietin_13.9_15.9',
-                'data_MTTQ HN_Agribank_9.9_12.9',
-                'data_MTTQ TW_Vietin_16.9',
-                'data_MTTQ TW_Vietin_17.9',
-               ]
-df = merge_lv2(folder_list)
-
-
 #%% II. APP
 st.set_page_config(
     page_title = 'THỐNG KÊ QUYÊN GÓP MẶT TRẬN TỔ QUỐC',
@@ -76,25 +22,25 @@ st.set_page_config(
     layout = 'wide'
     )
 
-st.title('THỐNG KÊ QUYÊN GÓP MẶT TRẬN TỔ QUỐC')
+st.title('THỐNG KÊ QUYÊN GÓP KHẮC PHỤC HẬU QUẢ BÃO YAGI')
 st.markdown("""
             ## NGUỒN THÔNG TIN:
             Thông tin được tôi tổng hợp (cập nhật đến 21/09/2024) được lấy từ các
-            tài liệu được Mặt Trận Tổ Quốc công bố tại link bên dưới:
+            tài liệu được Mặt Trận Tổ Quốc công bố tại link các bên dưới:
          
-            | STT | Tổ chức | Tài khoản | Ngày | Số lượt sao kê |
-            |:-:|:-:|:-:|:-:|:-:|
-            |1|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/18dIWiReYtJkyuQ_8vSBJWweGaD71rBpu/view)|VCB|1/9/2024-10/9/2024|200.364|
-            |2|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1ffkLOPymobFQjlklgpjabeHK7TX1ic3B/view)|Vietin|10/9/2024-12/9/2024|60.490|
-            |3|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/15CcMvRMufl2v4_wtTD-qpL_lokjLo326/view)|BIDV|1/9/2024-12/9/2024|5.807|
-            |4|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/14B6AeTF2QPAqx3jbzVoPaxGxteqV_h61/view)|VCB|11/9/2024|294.553|
-            |5|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/145iywYGSaLCOwI4gqqW0dPPTTbz2v23i/view)|VCB|12/9/2024|294.205|
-            |6|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1vF8CZjFKEG2LsVjJgIiHZfsKLqu1h6ZM/view)|VCB|13/9/2024|386.402|
-            |7|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1l03pejKXnjVXGj9RSnNVKQp5KVylfW-7/view)|VCB|14/9/2024|205.112|
-            |8|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/119YkzrpkYAC4J3TYZYpvSX95yo-0OzP6/view)|Vietin|13/9/2024-15/9/2024|99.343|
-            |9|[MTTQ - Ban cứu trợ TP Hà Nội](https://drive.google.com/drive/u/0/folders/1LcwdlD34rJODyiosCTsFvF-bM6Rp23te)|Agribank|9/9/2024-12/9/2024|42.493|
-            |10|[MTTQ - Ban cứu trợ TP Hà Nội](https://www.mediafire.com/file/b7hjuv1f85zf6cc/Ng%25C3%25A0y_16.9.2024_T%25C3%25A0i_kho%25E1%25BA%25A3n_CT1111.pdf/file)|Vietin|16/9/2024|16.276|
-            |11|[MTTQ - Ban cứu trợ TP Hà Nội](https://www.mediafire.com/file/hp8fvor7a8ihtm7/Ng%25C3%25A0y_17.09.2024_T%25C3%25A0i_kho%25E1%25BA%25A3n_CT1111.pdf/file)|Vietin|17/9/2024|14.327|
+            | STT | Tổ chức | Tài khoản | Ngày | Số lượt sao kê | Xác thực số liệu |
+            |:-:|:-:|:-:|:-:|:-:|:-:|
+            |1|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/18dIWiReYtJkyuQ_8vSBJWweGaD71rBpu/view)|VCB|1/9/2024-10/9/2024|200.364| Khớp số lượng |
+            |2|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1ffkLOPymobFQjlklgpjabeHK7TX1ic3B/view)|Vietin|10/9/2024-12/9/2024|60.490| Khớp số lượng |
+            |3|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/15CcMvRMufl2v4_wtTD-qpL_lokjLo326/view)|BIDV|1/9/2024-12/9/2024|5.807| Khớp số lượng |
+            |4|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/14B6AeTF2QPAqx3jbzVoPaxGxteqV_h61/view)|VCB|11/9/2024|294.553| Khớp số lượng |
+            |5|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/145iywYGSaLCOwI4gqqW0dPPTTbz2v23i/view)|VCB|12/9/2024|294.205| Khớp số lượng |
+            |6|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1vF8CZjFKEG2LsVjJgIiHZfsKLqu1h6ZM/view)|VCB|13/9/2024|386.402| Khớp số lượng |
+            |7|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1l03pejKXnjVXGj9RSnNVKQp5KVylfW-7/view)|VCB|14/9/2024|205.112| Khớp số lượng |
+            |8|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/119YkzrpkYAC4J3TYZYpvSX95yo-0OzP6/view)|Vietin|13/9/2024-15/9/2024|99.343| Khớp số lượng |
+            |9|[MTTQ - Ban cứu trợ TP Hà Nội](https://drive.google.com/drive/u/0/folders/1LcwdlD34rJODyiosCTsFvF-bM6Rp23te)|Agribank|9/9/2024-12/9/2024|42.493| Khớp số tiền và số dư mỗi giao dịch |
+            |10|[MTTQ - Ban cứu trợ trung ương](https://www.mediafire.com/file/b7hjuv1f85zf6cc/Ng%25C3%25A0y_16.9.2024_T%25C3%25A0i_kho%25E1%25BA%25A3n_CT1111.pdf/file)|Vietin|16/9/2024|16.276|Khớp số lượng |
+            |11|[MTTQ - Ban cứu trợ trung ương](https://www.mediafire.com/file/hp8fvor7a8ihtm7/Ng%25C3%25A0y_17.09.2024_T%25C3%25A0i_kho%25E1%25BA%25A3n_CT1111.pdf/file)|Vietin|17/9/2024|14.327|Khớp số lượng |
             """)   
 #%% 2.1 EDA
 
