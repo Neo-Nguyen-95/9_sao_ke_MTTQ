@@ -1,4 +1,4 @@
-#%% LIBRARY & DATA
+#%% I. LIBRARY & DATA
 import pandas as pd
 import plotly.express as px
 import numpy as np
@@ -27,8 +27,14 @@ st.set_page_config(
     )
 
 st.title('THỐNG KÊ QUYÊN GÓP KHẮC PHỤC HẬU QUẢ BÃO YAGI')
+
 st.markdown("""
-            ## NGUỒN THÔNG TIN:
+            ## I. METHODOLOGY
+            
+            """)
+
+st.markdown("""
+            ### Nguồn thông tin:
             Thông tin được tôi tổng hợp (cập nhật đến 21/09/2024) được lấy từ các
             tài liệu được Mặt Trận Tổ Quốc công bố tại link các bên dưới:
          
@@ -45,11 +51,18 @@ st.markdown("""
             |9|[MTTQ - Ban cứu trợ TP Hà Nội](https://drive.google.com/drive/u/0/folders/1LcwdlD34rJODyiosCTsFvF-bM6Rp23te)|Agribank|9/9/2024-12/9/2024|42.493| Khớp số tiền và số dư mỗi giao dịch |
             |10|[MTTQ - Ban cứu trợ trung ương](https://www.mediafire.com/file/b7hjuv1f85zf6cc/Ng%25C3%25A0y_16.9.2024_T%25C3%25A0i_kho%25E1%25BA%25A3n_CT1111.pdf/file)|Vietin|16/9/2024|16.276|Khớp số lượng |
             |11|[MTTQ - Ban cứu trợ trung ương](https://www.mediafire.com/file/hp8fvor7a8ihtm7/Ng%25C3%25A0y_17.09.2024_T%25C3%25A0i_kho%25E1%25BA%25A3n_CT1111.pdf/file)|Vietin|17/9/2024|14.327|Khớp số lượng |
-            """)   
+            """)  
+
+st.markdown("""
+            ### Quy trình xử lí dữ liệu:
+            Để đảm bảo tính chính xác, tôi xử lí data theo mô hình bên dưới.
+            """)
+
+st.image('photos/method.jpg', caption='Methodology of data process') 
 #%% 2.1 EDA
 
 st.markdown("""
-            ## I. THỐNG KÊ 
+            ## II. THỐNG KÊ 
             
             """)
 
@@ -234,7 +247,7 @@ st.write('Biểu đồ thể hiện số lượt quyên góp qua từng ngày')
 
 #%% 2.2 Search tool
 st.markdown("""
-            ## II. SAO KÊ CHI TIẾT
+            ## III. SAO KÊ CHI TIẾT
             """)
 
 col, buff, buff2 = st.columns([1, 1, 1])
