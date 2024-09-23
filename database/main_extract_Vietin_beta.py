@@ -4,7 +4,7 @@ import pandas as pd
 pd.set_option('display.max_columns', None)
 
 #%% EXTRACT DATA
-file_path = 'data_original/sao_ke_MTTQ_Vietin_17.9.pdf'
+file_path = 'data_original/sao_ke_MTTQ_Vietin_18.9.pdf'
 
 with pdfplumber.open(file_path) as pdf:
     pdf_length = len(pdf.pages)
@@ -23,7 +23,7 @@ def extract_pdf(file_path, start_page, end_page):
             
     return all_tables
 
-# pdf_length = 3
+# pdf_length = 2
 start_page = 1
 num_page = 500
 
