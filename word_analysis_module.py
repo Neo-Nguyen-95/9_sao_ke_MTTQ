@@ -4,6 +4,7 @@ from nltk import ngrams
 from data_module import data_module
 import seaborn as sns
 from datetime import datetime
+import numpy as np
 
 #%% FIND MOST FREQUENT N-GRAMS
 def find_frequent_ngrams(paragraph, n):
@@ -41,11 +42,13 @@ df = dataObject.load_data()
 
 df['content_length'] = df['content'].apply(lambda row: len(row.split(' ')))
 
-# sns.histplot(df, x='content_length')
+sns.histplot(df, x='content_length')
+
+sns.scatterplot(y=df['money'], x=df['content_length'], s=10)
 
 ngram_analysis(df[df['content_length']>20], 'content')
 
-df[df['content_length']>22]['content'].values
+df[df['content_length']>50]['content'].values
 
 #%%
 filter_date = datetime(2024,9,12).date()
