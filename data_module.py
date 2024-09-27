@@ -27,7 +27,9 @@ def merge_lv2(folder_list):
         df = pd.concat([df, df_temp], axis='rows')
     
     # clean money col
+    df = df[df['money'].notna()]
     df = df[df['money'].astype(int)>0]
+    
     
     # filter date col
     df['date'] = pd.to_datetime(df['date'], format='%d/%m/%Y').dt.date
@@ -40,6 +42,7 @@ def merge_lv2(folder_list):
   
     return df
 
+# folder_list = ['database/data_MTTQ TW_VCB_15.9_23.9']
 folder_list = ['database/' + folder for folder in os.listdir('database') if 'data_MTTQ ' in folder]
 
 #%% FUNCTIONAL
