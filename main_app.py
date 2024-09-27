@@ -46,15 +46,12 @@ st.markdown("""
             |4|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1vF8CZjFKEG2LsVjJgIiHZfsKLqu1h6ZM/view)|VCB|13/9/2024|386.402| Khớp số lượng |
             |5|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1l03pejKXnjVXGj9RSnNVKQp5KVylfW-7/view)|VCB|14/9/2024|205.112| Khớp số lượng |
             |6|[MTTQ - Ban cứu trợ trung ương](https://www.mediafire.com/file/7r7budt2imc19hv/Thong_tin_ung_ho_qua_STK_VCB_0011001932418_tu_ngay_15.9_den_23.9.2024.pdf/file)|VCB|15/9/2024-23/9/2024|406216| Khớp số lượng |
-            
             |7|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/15CcMvRMufl2v4_wtTD-qpL_lokjLo326/view)|BIDV|1/9/2024-12/9/2024|5.807| Khớp số lượng |
-            
             |8|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/1ffkLOPymobFQjlklgpjabeHK7TX1ic3B/view)|Vietin|10/9/2024-12/9/2024|60.490| Khớp số lượng |
             |9|[MTTQ - Ban cứu trợ trung ương](https://drive.google.com/file/d/119YkzrpkYAC4J3TYZYpvSX95yo-0OzP6/view)|Vietin|13/9/2024-15/9/2024|99.343| Khớp số lượng |
             |10|[MTTQ - Ban cứu trợ trung ương](https://www.mediafire.com/file/b7hjuv1f85zf6cc/Ng%25C3%25A0y_16.9.2024_T%25C3%25A0i_kho%25E1%25BA%25A3n_CT1111.pdf/file)|Vietin|16/9/2024|16.276|Khớp số lượng |
             |11|[MTTQ - Ban cứu trợ trung ương](https://www.mediafire.com/file/hp8fvor7a8ihtm7/Ng%25C3%25A0y_17.09.2024_T%25C3%25A0i_kho%25E1%25BA%25A3n_CT1111.pdf/file)|Vietin|17/9/2024|14.327|Khớp số lượng |
-            |12|[MTTQ - Ban cứu trợ trung ương](https://www.mediafire.com/file/qsgvmdkqq78bup3/Ng%25C3%25A0y_18.09.2024_T%25C3%25A0i_kho%25E1%25BA%25A3n_CT1111.pdf/file)|Vietin|18/9/2024|7.534|Khớp số lượng |
-            
+            |12|[MTTQ - Ban cứu trợ trung ương](https://www.mediafire.com/file/qsgvmdkqq78bup3/Ng%25C3%25A0y_18.09.2024_T%25C3%25A0i_kho%25E1%25BA%25A3n_CT1111.pdf/file)|Vietin|18/9/2024|7.534|Khớp số lượng |  
             |13|[MTTQ - Ban cứu trợ TP Hà Nội](https://drive.google.com/drive/u/0/folders/1LcwdlD34rJODyiosCTsFvF-bM6Rp23te)|Agribank|9/9/2024-12/9/2024|42.493| Khớp số tiền và số dư mỗi giao dịch |
             """)  
 
