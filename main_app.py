@@ -32,7 +32,7 @@ hide_menu_style = """
     
 footer {visibility: hidden;}
 
-stAppToolbar.st-emotion-cache-15ecox0.ezrtsby0 {visibility: hidden;}
+.stAppToolbar.st-emotion-cache-15ecox0.ezrtsby0 {visibility: hidden;}
 
 </style>
 """
