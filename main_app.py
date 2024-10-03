@@ -29,9 +29,10 @@ st.set_page_config(
 hide_menu_style = """
 <style>
 #MainMenu {visibility: hidden;}
+    
 footer {visibility: hidden;}
-.stActionButton {visibility: hidden;}
-a[href*="github.com"] {visibility: hidden;}
+
+stAppToolbar.st-emotion-cache-15ecox0.ezrtsby0 {visibility: hidden;}
 
 </style>
 """
