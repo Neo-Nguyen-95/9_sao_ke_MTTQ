@@ -29,11 +29,7 @@ st.set_page_config(
 hide_menu_style = """
 <style>
 #MainMenu {visibility: hidden;}
-    
 footer {visibility: hidden;}
-
-.stAppToolbar.st-emotion-cache-15ecox0.ezrtsby0 {visibility: hidden;}
-
 </style>
 """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
