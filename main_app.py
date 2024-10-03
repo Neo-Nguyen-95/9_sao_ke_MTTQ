@@ -31,6 +31,7 @@ hide_menu_style = """
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 .stActionButton {visibility: hidden;}
+a[href*="github.com"] {visibility: hidden;}
 
 </style>
 """
