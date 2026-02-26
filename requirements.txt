@@ -1,6 +1,7 @@
 pandas
 plotly
 numpy
-streamlit
+streamlit==1.22.0
 datetime
 pyarrow
+altair==4.2.2
